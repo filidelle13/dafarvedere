@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Motore Auto Demo</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        input[type=range] { width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>Motore Auto Demo</h1>
+    <p>Regola la velocità per sentire il blending tra Idle e Drive</p>
+
+    <!-- Audio Sources -->
+    <audio id="idle" src="idlemotorgiusto2.mp3" loop autoplay></audio>
+    <audio id="drive" src="autoaccedec.mp3" loop autoplay></audio>
+
+    <p>Velocità:</p>
+    <input type="range" id="speedSlider" min="0" max="100" value="0">
+
+    <script>
+        const idleAudio = document.getElementById('idle');
+        const driveAudio = document.getElementById('drive');
+        const slider = document.getElementById('speedSlider');
+
+        slider.addEventListener('input', () => {
+            const speed = slider.value / 100; // 0 - 1
+            idleAudio.volume = 1 - speed;     // più veloce = meno idle
+            driveAudio.volume = speed;        // più veloce = più drive
+        });
+    </script>
+</body>
+</html>
