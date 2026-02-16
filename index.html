@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Motore Auto Demo</title>
     <style>
-        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         input[type=range] { width: 300px; }
     </style>
 </head>
@@ -12,9 +12,8 @@
     <h1>Motore Auto Demo</h1>
     <p>Regola la velocità per sentire il blending tra Idle e Drive</p>
 
-    <!-- Audio Sources -->
-    <audio id="idle" src="idlemotorgiusto2.mp3" loop autoplay></audio>
-    <audio id="drive" src="autoaccedec.mp3" loop autoplay></audio>
+    <audio id="idle" src="idlemotorgiusto2.mp3" loop></audio>
+    <audio id="drive" src="auotaccedec.mp3" loop></audio>
 
     <p>Velocità:</p>
     <input type="range" id="speedSlider" min="0" max="100" value="0">
@@ -24,10 +23,16 @@
         const driveAudio = document.getElementById('drive');
         const slider = document.getElementById('speedSlider');
 
+        // Avvia l’audio (alcuni browser richiedono un click)
+        document.body.addEventListener('click', () => {
+            idleAudio.play();
+            driveAudio.play();
+        }, { once: true });
+
         slider.addEventListener('input', () => {
-            const speed = slider.value / 100; // 0 - 1
-            idleAudio.volume = 1 - speed;     // più veloce = meno idle
-            driveAudio.volume = speed;        // più veloce = più drive
+            const speed = slider.value / 100; 
+            idleAudio.volume = 1 - speed;
+            driveAudio.volume = speed;
         });
     </script>
 </body>
