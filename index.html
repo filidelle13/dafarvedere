@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,31 +7,34 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         input[type=range] { width: 300px; }
+        button { padding: 10px 20px; font-size: 16px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <h1>Motore Auto Demo</h1>
-    <p>Regola la velocità per sentire il blending tra Idle e Drive</p>
-
-    <audio id="idle" src="idlemotorgiusto2.mp3" loop></audio>
-    <audio id="drive" src="auotaccedec.mp3" loop></audio>
+    <p>Premi il pulsante per avviare l’audio:</p>
+    <button id="startBtn">Avvia Audio</button>
 
     <p>Velocità:</p>
     <input type="range" id="speedSlider" min="0" max="100" value="0">
+
+    <audio id="idle" src="idlemotorgiusto2.mp3" loop></audio>
+    <audio id="drive" src="auotaccedec.mp3" loop></audio>
 
     <script>
         const idleAudio = document.getElementById('idle');
         const driveAudio = document.getElementById('drive');
         const slider = document.getElementById('speedSlider');
+        const startBtn = document.getElementById('startBtn');
 
-        // Avvia l’audio (alcuni browser richiedono un click)
-        document.body.addEventListener('click', () => {
+        startBtn.addEventListener('click', () => {
             idleAudio.play();
             driveAudio.play();
-        }, { once: true });
+            startBtn.disabled = true; // disabilita il pulsante dopo il click
+        });
 
         slider.addEventListener('input', () => {
-            const speed = slider.value / 100; 
+            const speed = slider.value / 100;
             idleAudio.volume = 1 - speed;
             driveAudio.volume = speed;
         });
